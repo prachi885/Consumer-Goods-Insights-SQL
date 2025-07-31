@@ -28,7 +28,6 @@ Consumer-Goods-Insights-SQL/
 │   ├── Request_1.sql
 │   ├── Request_2.sql
 │   └── ...
-├── dataset
 ├── ppt presentation
 ```
 
