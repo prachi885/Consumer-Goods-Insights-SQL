@@ -37,11 +37,6 @@ Consumer-Goods-Insights-SQL/
 - SQL (MySQL)
 - Codebasics SQL Challenge Dataset
 
-## 👩‍💻 Author
-
-**Prachi Jadhav**  
-🔗 GitHub: [prachi885](https://github.com/prachi885)
-
 ## 🎓 Credits
 
 Challenge by [Codebasics](https://www.codebasics.io/)
