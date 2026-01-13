@@ -5,21 +5,14 @@ product_count_2020
 product_count_2021
 difference*/
 
-WITH CTE1 AS 
-	(SELECT P.segment AS A , COUNT(DISTINCT(FS.product_code)) AS B 
-    FROM dim_product P, fact_sales_monthly FS
-    WHERE P.product_code = FS.product_code
-    GROUP BY FS.fiscal_year, P.segment
-    HAVING FS.fiscal_year = "2020"),
-CTE2 AS
-    (
-	SELECT P.segment AS C , COUNT(DISTINCT(FS.product_code)) AS D 
-    FROM dim_product P, fact_sales_monthly FS
-    WHERE P.product_code = FS.product_code
-    GROUP BY FS.fiscal_year, P.segment
-    HAVING FS.fiscal_year = "2021"
-    )     
-    
-SELECT CTE1.A AS segment, CTE1.B AS product_count_2020, CTE2.D AS product_count_2021, (CTE2.D-CTE1.B) AS difference  
-FROM CTE1, CTE2
-WHERE CTE1.A = CTE2.C ;
+SELECT
+    p.segment,
+    COUNT(DISTINCT CASE WHEN fs.fiscal_year = 2020 THEN fs.product_code END) AS product_count_2020,
+    COUNT(DISTINCT CASE WHEN fs.fiscal_year = 2021 THEN fs.product_code END) AS product_count_2021,
+    COUNT(DISTINCT CASE WHEN fs.fiscal_year = 2021 THEN fs.product_code END)
+    - COUNT(DISTINCT CASE WHEN fs.fiscal_year = 2020 THEN fs.product_code END) AS difference
+FROM dim_product p
+JOIN fact_sales_monthly fs
+    ON p.product_code = fs.product_code
+GROUP BY p.segment
+ORDER BY difference DESC;
